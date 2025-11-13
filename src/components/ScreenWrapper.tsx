@@ -15,7 +15,7 @@ export function ScreenWrapper({
       colors={['#eef6fb', '#f6f8fa']}
       start={{ x: 1, y: 0 }}
       end={{ x: 0.31, y: 1 }}
-      style={[{ flex: 1 }, style]}
+      style={[{ flex: 1, paddingInline: 16, paddingTop: 12 }, style]}
     >
       {children}
     </LinearGradient>
