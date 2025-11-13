@@ -27,5 +27,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': ['warn'],
     'react/prop-types': 'off',
+    "react-native/no-inline-styles": 'off',
   },
 };

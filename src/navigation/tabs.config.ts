@@ -20,7 +20,7 @@ export const TABS = [
     },
   },
   {
-    name: 'Transaction',
+    name: 'Transactions',
     component: TransactionsScreen,
     icons: {
       default: TransactionsIcon,

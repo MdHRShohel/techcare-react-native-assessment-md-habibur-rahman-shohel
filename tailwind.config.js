@@ -9,6 +9,7 @@ module.exports = {
         black: '#0F0D27',
         gray: '#6A697A',
         tabBackground: '#EDF7F7',
+        titleText: '#1E1852',
       },
     },
   },

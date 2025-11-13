@@ -1,26 +1,19 @@
-import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React from 'react';
-import { TabBarIcon } from '../components/TabBarIcon';
-import { TABS } from './tabs.config';
+import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { RouteProp } from '@react-navigation/native';
 import CustomBottomTabs from '../components/CustomBottomTabs';
+import CustomHeader from '../components/CustomHeader';
+import { CreateTabBarIcon } from '../components/createTabBarIcon';
+import { TABS } from './tabs.config';
+
+type HeaderProps = {
+  name: string;
+  route: RouteProp<Record<string, object | undefined>, string>;
+};
 
 const Tab = createBottomTabNavigator();
 
-function createTabBarIcon(
-  icons: {
-    default: React.FC<{ width?: number; height?: number }>;
-    active: React.FC<{ width?: number; height?: number }>;
-  },
-  name: string,
-) {
-  return function TabBarIconWrapper({ focused }: { focused: boolean }) {
-    return (
-      <TabBarIcon focused={focused} icon={icons.default} iconActive={icons.active} label={name} />
-    );
-  };
-}
-
 const renderTabBar = (props: BottomTabBarProps) => <CustomBottomTabs {...props} />;
+const renderHeader = ({ name, route }: HeaderProps) => <CustomHeader title={name} route={route} />;
 
 export default function TabNavigator() {
   return (
@@ -42,7 +35,9 @@ export default function TabNavigator() {
           name={name}
           component={Component}
           options={{
-            tabBarIcon: createTabBarIcon(icons, name),
+            tabBarIcon: CreateTabBarIcon(icons, name),
+            headerShown: true,
+            header: ({ route }) => renderHeader({ name, route }),
           }}
         />
       ))}
