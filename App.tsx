@@ -1,19 +1,18 @@
-import './global.css';
-import { StatusBar, Text, useColorScheme, View } from 'react-native';
+import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { LogBox } from 'react-native';
-// Ignore SafeAreaView deprecation warning from dependencies
-LogBox.ignoreLogs(['SafeAreaView has been deprecated']);
+import RootNavigator from './src/navigation/RootNavigator';
+import './global.css';
+import { NavigationContainer } from '@react-navigation/native';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text className="text-2xl font-bold text-blue-500">Initial setup with nativewind</Text>
-      </View>
+      <NavigationContainer>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <RootNavigator />
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
