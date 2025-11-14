@@ -1,14 +1,17 @@
-// src/components/ScreenWrapper.tsx
 import React from 'react';
-import { ViewProps } from 'react-native';
+import { ScrollView, View, ViewProps } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 export function ScreenWrapper({
   children,
+  floating,
   style,
+  contentContainerStyle,
 }: {
   children: React.ReactNode;
+  floating?: React.ReactNode;
   style?: ViewProps['style'];
+  contentContainerStyle?: ViewProps['style'];
 }) {
   return (
     <LinearGradient
@@ -17,7 +20,30 @@ export function ScreenWrapper({
       end={{ x: 0.31, y: 1 }}
       style={[{ flex: 1 }, style]}
     >
-      {children}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          {
+            paddingHorizontal: 16,
+            paddingTop: 12,
+            paddingBottom: 20,
+          },
+          contentContainerStyle,
+        ]}
+      >
+        {children}
+      </ScrollView>
+      {floating && (
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 36,
+            right: 16,
+          }}
+        >
+          {floating}
+        </View>
+      )}
     </LinearGradient>
   );
 }
