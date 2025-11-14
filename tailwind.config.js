@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         black: '#0F0D27',
         gray: '#6A697A',
+        grey: '#52515D',
         tabBackground: '#EDF7F7',
         titleText: '#1E1852',
       },
