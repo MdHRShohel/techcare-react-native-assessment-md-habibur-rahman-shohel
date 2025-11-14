@@ -11,6 +11,7 @@ module.exports = {
         grey: '#52515D',
         tabBackground: '#EDF7F7',
         titleText: '#1E1852',
+        plusBtnBg: '#0C2741',
       },
     },
   },

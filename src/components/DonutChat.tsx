@@ -37,7 +37,7 @@ function DonutChart({ data }: DonutChartProps) {
           }}
         >
           <Text className="text-[20px] font-bold text-titleText">{formatCurrency(total)}</Text>
-          <Text className="text-grey mt-[6px] text-xs font-medium">Total Spent</Text>
+          <Text className="mt-[6px] text-xs font-medium text-grey">Total Spent</Text>
         </View>
       </View>
 
@@ -48,7 +48,9 @@ function DonutChart({ data }: DonutChartProps) {
               <View className="mt-1 size-4 rounded-full" style={{ backgroundColor: item.color }} />
               <View>
                 <Text className="text-sm font-medium text-black">{item.label}</Text>
-                <Text className="text-grey mt-2 text-sm font-medium">20.2%</Text>
+                <Text className="mt-2 text-sm font-medium text-grey">
+                  {((item.value / total) * 100).toFixed(1)}%
+                </Text>
               </View>
             </View>
             <View className="flex-row gap-2">

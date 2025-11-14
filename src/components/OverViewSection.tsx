@@ -10,7 +10,7 @@ const data = [
 
 const OverViewSection = () => {
   return (
-    <View className="rounded-[20px] bg-white p-[18px]">
+    <View className="rounded-[20px] bg-white p-[18px] shadow-md">
       <Text className="font-medium text-titleText">Top Spending overview</Text>
       <DonutChat data={data} />
     </View>

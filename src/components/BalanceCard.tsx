@@ -23,7 +23,7 @@ const BalanceCard = () => {
   };
 
   return (
-    <View className="relative mr-1 p-4">
+    <View className="relative mr-1 p-4 shadow-md">
       <Image source={CardBG} className="absolute inset-0" />
       <View className="flex-row">
         <Text className="flex-1 text-xs font-medium uppercase text-gray">total balance</Text>
