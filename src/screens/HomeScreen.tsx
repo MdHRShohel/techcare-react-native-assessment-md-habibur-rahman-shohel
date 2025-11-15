@@ -16,10 +16,10 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ScreenWrapper floating={<FloatingButton onPress={() => setOpen(true)} />}>
-        <View className="gap-[18px]">
+        <View className="flex-1 gap-[18px]">
           <BalanceCard />
           <OverViewSection />
-          <Transactions />
+          <Transactions title="Recent Transactions" scrollEnabled={false} />
         </View>
       </ScreenWrapper>
       <BottomSheetModal title="Add New Transaction" visible={open} onClose={closeModal}>

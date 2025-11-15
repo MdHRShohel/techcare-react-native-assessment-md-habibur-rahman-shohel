@@ -3,7 +3,7 @@ import { CategoryItem, CategoryType } from './categoryType';
 export interface Transaction {
   id: string;
   type: CategoryType;
-  amount: number;
+  amount: string | number;
   category: CategoryItem | null;
   date: string;
   note: string;

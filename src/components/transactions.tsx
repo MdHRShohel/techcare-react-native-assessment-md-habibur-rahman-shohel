@@ -1,20 +1,43 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SectionList, Text, View } from 'react-native';
 import { useTransactionStore } from '../store/useTransactionStore';
+import { groupTransactionsByDate } from '../utils/groupByDateSorted';
+import TransactionItem from './TransactionItem';
+import { TransactionSectionHeader } from './TransactionSectionHeader';
 
-const Transactions = () => {
-  const transactionsData = useTransactionStore((state) => state.transactions);
+const ItemSeparator = () => <View className="my-4 h-[1px] bg-black/10" />;
 
-  console.log('transactionsData:', transactionsData);
+const Transactions = ({
+  title,
+  scrollEnabled = true,
+}: {
+  title: string;
+  scrollEnabled?: boolean;
+}) => {
+  const transactions = useTransactionStore((s) => s.transactions);
+  const sections = groupTransactionsByDate(transactions);
 
   return (
-    <View className="rounded-[20px] bg-white p-[18px] shadow-md">
-      <Text className="font-medium text-titleText">Recent Transactions</Text>
+    <View className="flex-1 rounded-[20px] bg-white p-4 shadow-md">
+      <Text className="mb-4 font-medium text-titleText">{title}</Text>
 
-      <View className="flex-row justify-between">
-        <Text>Thursday, Aug 14</Text>
-        <Text>$135.50</Text>
-      </View>
+      <SectionList
+        sections={sections}
+        keyExtractor={(item) => item.id}
+        scrollEnabled={scrollEnabled}
+        renderItem={({ item }) => (
+          <TransactionItem
+            item={item}
+            onEdit={(tx) => console.log('Edit:', tx)}
+            onDelete={(tx) => console.log('Delete:', tx)}
+          />
+        )}
+        renderSectionHeader={({ section: { title: sectionTitle, data } }) => (
+          <TransactionSectionHeader title={sectionTitle} data={data} />
+        )}
+        ItemSeparatorComponent={ItemSeparator}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      />
     </View>
   );
 };
