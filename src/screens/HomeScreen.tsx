@@ -6,7 +6,7 @@ import FloatingButton from '../components/FloatingButton';
 import OverViewSection from '../components/OverViewSection';
 import { ScreenWrapper } from '../components/ScreenWrapper';
 import TransactionsModalsComponents from '../components/TransactionsModalsComponents';
-// import Transactions from '../components/transactions';
+import Transactions from '../components/transactions';
 
 export default function HomeScreen() {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ export default function HomeScreen() {
         <View className="gap-[18px]">
           <BalanceCard />
           <OverViewSection />
-          {/* <Transactions /> */}
+          <Transactions />
         </View>
       </ScreenWrapper>
       <BottomSheetModal title="Add New Transaction" visible={open} onClose={closeModal}>

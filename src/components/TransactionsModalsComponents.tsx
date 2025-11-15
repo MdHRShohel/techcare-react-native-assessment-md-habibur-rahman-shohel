@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
+import uuid from 'react-native-uuid';
 import { categories } from '../constants/category';
+import { useTransactionStore } from '../store/useTransactionStore';
 import { CategoryItem, CategoryType } from '../types/categoryType';
 import AmountInput from './AmountInput';
 import DatePickerInput from './DatePickerInput';
@@ -29,6 +31,8 @@ const TransactionsModalsComponents = ({ closeModal }: TransactionsModalsComponen
     note: '',
   });
 
+  const addTransaction = useTransactionStore((state) => state.addTransaction);
+
   const filteredCategories = categories.filter((c) => c.type === formData.type);
 
   const handleCancel = () => {
@@ -54,9 +58,37 @@ const TransactionsModalsComponents = ({ closeModal }: TransactionsModalsComponen
       return;
     }
 
-    // Example: send formData to backend or parent callback
-    console.log('Saved Data:', formData);
+    if (!formData.date) {
+      Alert.alert('Validation', 'Please pick a date');
+      return;
+    }
+
+    if (!formData.note) {
+      Alert.alert('Validation', 'Please enter a note');
+      return;
+    }
+
+    // Create new transaction
+    const newTransaction = {
+      id: uuid.v4() as string,
+      ...formData,
+      amount: parseFloat(formData.amount.replace('$', '')),
+      date: (formData.date as Date).toISOString(),
+    };
+    // Save to Zustand (auto persisted to AsyncStorage)
+    addTransaction(newTransaction);
+
     Alert.alert('Success', 'Transaction saved!');
+
+    setFormData({
+      type: 'expense',
+      amount: '$',
+      category: null,
+      date: undefined,
+      note: '',
+    });
+
+    closeModal();
   };
 
   return (
