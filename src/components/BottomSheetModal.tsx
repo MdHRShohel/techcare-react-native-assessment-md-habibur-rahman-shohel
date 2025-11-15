@@ -31,7 +31,7 @@ export default function BottomSheetModal({
       translateY.value = withTiming(height, { duration: 300 });
       backdropOpacity.value = withTiming(0, { duration: 250 });
     }
-  }, [visible]);
+  }, [visible, backdropOpacity, height, translateY]);
 
   const animatedSheet = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],

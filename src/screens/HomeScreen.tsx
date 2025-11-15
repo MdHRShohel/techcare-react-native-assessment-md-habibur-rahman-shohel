@@ -1,14 +1,18 @@
-import { Text, View } from 'react-native';
+import { useState } from 'react';
+import { View } from 'react-native';
 import BalanceCard from '../components/BalanceCard';
+import BottomSheetModal from '../components/BottomSheetModal';
 import FloatingButton from '../components/FloatingButton';
 import OverViewSection from '../components/OverViewSection';
 import { ScreenWrapper } from '../components/ScreenWrapper';
-import { useState } from 'react';
-import BottomSheetModal from '../components/BottomSheetModal';
+import TransactionsModalsComponents from '../components/TransactionsModalsComponents';
 // import Transactions from '../components/transactions';
 
 export default function HomeScreen() {
   const [open, setOpen] = useState(false);
+  const closeModal = () => {
+    setOpen(false);
+  };
   return (
     <View style={{ flex: 1 }}>
       <ScreenWrapper floating={<FloatingButton onPress={() => setOpen(true)} />}>
@@ -18,10 +22,8 @@ export default function HomeScreen() {
           {/* <Transactions /> */}
         </View>
       </ScreenWrapper>
-      <BottomSheetModal title="Add New Transaction" visible={open} onClose={() => setOpen(false)}>
-        <View>
-          <Text>Your form or UI goes here.</Text>
-        </View>
+      <BottomSheetModal title="Add New Transaction" visible={open} onClose={closeModal}>
+        <TransactionsModalsComponents closeModal={closeModal} />
       </BottomSheetModal>
     </View>
   );
