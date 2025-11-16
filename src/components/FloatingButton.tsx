@@ -12,9 +12,9 @@ const FloatingButton = ({ onPress }: FloatingButtonProps) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      className="bg-plusBtnBg size-[68px] items-center justify-center rounded-full shadow-lg"
+      className="bg-plusBtnBg size-[58px] items-center justify-center rounded-full shadow-lg"
     >
-      <HugeiconsIcon icon={PlusSignIcon} size={22} className="text-white" />
+      <HugeiconsIcon icon={PlusSignIcon} size={22} color="#fff" />
     </TouchableOpacity>
   );
 };

@@ -15,6 +15,7 @@ module.exports = {
         plusBtnBg: '#0C2741',
         textColor: '#404559',
         textColor2: '#1E1852',
+        error: '#E02C2F',
       },
     },
   },

@@ -1,15 +1,69 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { SectionList, Text, View } from 'react-native';
+import { useTransactionStore } from '../store/useTransactionStore';
+import { Transaction } from '../types/Transaction';
+import { groupTransactionsByDate } from '../utils/groupByDateSorted';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
+import TransactionItem from './TransactionItem';
+import { TransactionSectionHeader } from './TransactionSectionHeader';
 
-const Transactions = () => {
+const ItemSeparator = () => <View className="h-[1px] bg-black/10" />;
+
+const Transactions = ({
+  title,
+  scrollEnabled = true,
+  onEdit,
+}: {
+  title: string;
+  scrollEnabled?: boolean;
+  onEdit?: (tx: Transaction) => void;
+}) => {
+  const transactions = useTransactionStore((s) => s.transactions);
+  const sections = groupTransactionsByDate(transactions);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
+  const deleteTransaction = useTransactionStore((s) => s.deleteTransaction);
+
+  const handleDelete = (id: string) => {
+    setSelectedTransactionId(id);
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (selectedTransactionId) {
+      deleteTransaction(String(selectedTransactionId));
+      setDeleteModalOpen(false);
+      setSelectedTransactionId(null);
+    }
+  };
+
   return (
-    <View className="rounded-[20px] bg-white p-[18px] shadow-md">
-      <Text className="font-medium text-titleText">Recent Transactions</Text>
+    <View className="flex-1 rounded-[20px] bg-white p-4 shadow-md">
+      <Text className="mb-4 font-medium text-titleText">{title}</Text>
 
-      <View className="flex-row justify-between">
-        <Text>Thursday, Aug 14</Text>
-        <Text>$135.50</Text>
-      </View>
+      <SectionList
+        sections={sections}
+        keyExtractor={(item) => item.id}
+        scrollEnabled={scrollEnabled}
+        renderItem={({ item }) => (
+          <TransactionItem
+            item={item}
+            onEdit={onEdit}
+            onDelete={(id) => handleDelete(String(id))}
+          />
+        )}
+        renderSectionHeader={({ section: { title: sectionTitle, data } }) => (
+          <TransactionSectionHeader title={sectionTitle} data={data} />
+        )}
+        ItemSeparatorComponent={ItemSeparator}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      />
+
+      <DeleteConfirmationModal
+        visible={deleteModalOpen}
+        onCancel={() => setDeleteModalOpen(false)}
+        onConfirm={confirmDelete}
+      />
     </View>
   );
 };

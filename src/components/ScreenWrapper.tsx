@@ -37,7 +37,7 @@ export function ScreenWrapper({
         <View
           style={{
             position: 'absolute',
-            bottom: 36,
+            bottom: 20,
             right: 16,
           }}
         >

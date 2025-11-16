@@ -5,7 +5,7 @@ interface UiButtonProps {
   label: string;
   onPress?: () => void;
   selected?: boolean;
-  variant?: 'solid' | 'outline' | 'primary' | 'primary-outline';
+  variant?: 'solid' | 'outline' | 'primary' | 'primary-outline' | 'error-outline';
   className?: string;
 }
 
@@ -38,6 +38,11 @@ export default function UiButton({
         bgClass = 'bg-transparent';
         borderClass = 'border-titleText';
         textClass = 'text-textColor2 font-semibold text-sm';
+        break;
+      case 'error-outline':
+        bgClass = 'bg-error/10';
+        borderClass = 'border-error';
+        textClass = 'text-error font-semibold text-sm';
         break;
       case 'primary':
         bgClass = 'bg-textColor2';
