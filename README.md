@@ -1,97 +1,190 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Finance App – React Native Assessment
 
-# Getting Started
+A mobile financial dashboard application built for the Techcare React Native Take-Home Project, implementing core UI flows, navigation, state management, and authentication simulation using React Native & Zustand.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+This submission includes a working authentication flow, splash screen, bottom tab navigation, transaction listing UI, and reusable components — with clean and scalable architecture set up for further development.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🚀 Features Implemented
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### 1. Splash Screen
+- Custom branding
+- App icon + title
+- Visible for 2 seconds before navigation
+- Uses NativeWind + Hugeicons
 
-```sh
-# Using npm
+### 2. Authentication Flow
+- Login screen (email/password, icons, styled inputs)
+- Signup screen
+- Navigation between Login ↔ Signup
+- Zustand store to simulate login/logout
+- Redirect to Main app after login
+- Form input states & validation placeholders
+
+### 3. Navigation
+- React Navigation v6+
+- Stack Navigator (Splash → Auth → Main)
+- Bottom Tab Navigator for main screens
+- Navigation flows working smoothly
+
+### 4. Home / Dashboard
+- Balance card with show hide system
+- Chart
+- Recent transactions list UI
+- Date formatting
+- Swipe actions
+- Custom modal for delete
+
+### 5. Transactions
+- Transaction card UI (icon, tags, amount, type)
+- Date formatting: Friday, Aug 15, 2025
+- Delete action UI prepared
+- Zustand store structure ready for real data
+
+### 6. State Management
+Using Zustand for:
+- Auth store (login / logout simulation)
+- Transaction store (sample data + helpers)
+- Balance store (placeholder for API integration)
+
+### 7. Code Quality
+- File structure aligned with requirements
+- Reusable components
+- Hooks prepared for API integration
+- Clean commit history (feature-based)
+
+---
+
+## ❌ Features Not Completed
+- Mock API server (JSON Server / MSW)
+- Full profile/settings UI
+- Receipt generation (share/download)
+- Error boundaries
+- Dark mode
+- Analytics
+- Unit & component testing (Jest + RN Testing Library)
+
+---
+
+## 📁 Project Structure
+```ssh
+src/
+├── api/          # API calls and configurations
+├── assets/       # Images, fonts, icons
+├── components/   # Reusable UI components
+├── constants/    # App constants
+├── hooks/        # Custom React hooks
+├── navigation/   # Navigation configuration
+├── screens/      # Screen components
+├── store/        # State management (Zustand)
+├── types/        # TypeScript types/interfaces
+└── utils/        # Utility functions
+```
+
+## 🛠 Tech Stack
+- React Native (CLI)
+- TypeScript / JavaScript
+- Zustand – state management
+- React Navigation v6
+- NativeWind – styling
+- Hugeicons – icons
+- React Native Chart Kit (partial usage)
+- AsyncStorage (optional for auth persistence, pending)
+
+---
+
+## 📦 How to Run the Project
+
+1. **Clone Repository**
+
+```bash
+git clone https://github.com/MdHRShohel/techcare-react-native-assessment-md-habibur-rahman-shohel
+cd techcare-react-native-assessment-md-habibur-rahman-shohel
+```
+
+2. **Install Dependencies**
+  
+```bash
+npm install
+# or
+yarn install
+```
+
+3. **Start Metro**
+  
+```bash
 npm start
-
-# OR using Yarn
+# or
 yarn start
 ```
 
-## Step 2: Build and run your app
+4. **Run App** 
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+  on Android:
+```bash
 npm run android
-
-# OR using Yarn
+# or
 yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+  on IOS:
+```bash
 npm run ios
-
-# OR using Yarn
+# or
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## ⏱ Time Breakdown
 
-## Step 3: Modify your app
+- Initial Setup: 2 hours
 
-Now that you have successfully run the app, let's make changes!
+- Splash Screen: 30 min
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+- Navigation Setup: 1.5 hours
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+- Authentication (Login + Signup): 2 hours
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- Dashboard UI: 6 hours
 
-## Congratulations! :tada:
+- Transaction List: 3 hours
 
-You've successfully run and modified your React Native App. :partying_face:
+- State Management (Zustand): 1 hour
 
-### Now what?
+- Bug Fixing & Polish: 2 hours
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+- Documentation & README: 1 hour
 
-# Troubleshooting
+### Total: ~19 hours
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 📌 Notes
 
-# Learn More
+This submission focuses on clean structure, scalable design, and functional core flows.
+Some advanced features remain incomplete due to the deadline, but foundations are prepared for full implementation.
 
-To learn more about React Native, take a look at the following resources:
+## 📸 Screenshots
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+![plot](./screenshots/splashscreen.png)
+
+![plot](./screenshots/image%20copy%209.png)
+
+![plot](./screenshots/image%20copy%2010.png)
+
+![plot](./screenshots/image.png)
+
+![plot](./screenshots/image%20copy%206.png)
+
+![plot](./screenshots/image%20copy.png)
+
+![plot](./screenshots/image%20copy%202.png)
+
+![plot](./screenshots/image%20copy%203.png)
+
+![plot](./screenshots/image%20copy%204.png)
+
+![plot](./screenshots/image%20copy%205.png)
+
+![plot](./screenshots/image%20copy%207.png)
+
+![plot](./screenshots/image%20copy%208.png)
