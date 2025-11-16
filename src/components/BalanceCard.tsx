@@ -6,17 +6,33 @@ import RoundedArrow from '../assets/Icons/arrow-rounded.svg';
 import CardBG from '../assets/images/card-bg.png';
 import PriceBg1 from '../assets/images/pricebg-1.png';
 import PriceBg2 from '../assets/images/pricebg-2.png';
+import { useTransactionStore } from '../store/useTransactionStore';
 import { formatCurrency } from '../utils/formatCurrency';
 import GradientDivider from './GradientDivider';
 
 const BalanceCard = () => {
   const [isBalanceVisible, setIsBalanceVisible] = React.useState(true);
+  const transactions = useTransactionStore((s) => s.transactions);
 
-  const balance = {
-    totalBalance: 25300.0,
-    income: 500,
-    expense: 247,
-  };
+  const balanceData = React.useMemo(() => {
+    const income = transactions
+      .filter((t) => t.type === 'income')
+      .reduce(
+        (sum, t) =>
+          sum + (typeof t.amount === 'number' ? t.amount : parseFloat(t.amount.toString())),
+        0,
+      );
+
+    const expense = transactions
+      .filter((t) => t.type === 'expense')
+      .reduce(
+        (sum, t) =>
+          sum + (typeof t.amount === 'number' ? t.amount : parseFloat(t.amount.toString())),
+        0,
+      );
+
+    return { totalBalance: income - expense, income, expense };
+  }, [transactions]);
 
   const toggleBalanceVisibility = () => {
     setIsBalanceVisible(!isBalanceVisible);
@@ -35,7 +51,7 @@ const BalanceCard = () => {
         </TouchableOpacity>
       </View>
       <Text className="mt-[10px] text-3xl font-bold text-titleText">
-        {isBalanceVisible ? formatCurrency(balance.totalBalance) : '********'}
+        {isBalanceVisible ? formatCurrency(balanceData.totalBalance) : '********'}
       </Text>
 
       <View className="-mx-[14px]">
@@ -50,7 +66,7 @@ const BalanceCard = () => {
           </View>
           <Text className="text-xs font-medium text-gray">Income</Text>
           <Text className="mt-[6px] text-[20px] font-medium text-titleText">
-            {formatCurrency(balance.income)}
+            {formatCurrency(balanceData.income)}
           </Text>
         </View>
         <View className="relative flex-1 px-[14px] py-3">
@@ -60,7 +76,7 @@ const BalanceCard = () => {
           </View>
           <Text className="text-xs font-medium text-gray">Expense</Text>
           <Text className="mt-[6px] text-[20px] font-medium text-titleText">
-            {formatCurrency(balance.expense)}
+            {formatCurrency(balanceData.expense)}
           </Text>
         </View>
       </View>
