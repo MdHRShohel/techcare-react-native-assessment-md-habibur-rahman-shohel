@@ -6,7 +6,7 @@ import DatePicker from 'react-native-date-picker';
 
 interface DatePickerInputProps {
   label?: string;
-  date?: Date; // optional, can be undefined initially
+  date?: Date;
   onChange: (date: Date) => void;
   mode?: 'date' | 'time';
   placeholder?: string;
@@ -22,20 +22,26 @@ export default function DatePickerInput({
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<Date | null>(date || null);
 
-  const handleConfirm = (d: Date) => {
-    setSelected(d);
-    onChange(d);
+  // temp date while modal is open
+  const [tempDate, setTempDate] = useState<Date>(date || new Date());
+
+  const openPicker = () => {
+    setTempDate(selected || new Date());
+    setOpen(true);
+  };
+
+  const handleDone = () => {
+    setSelected(tempDate);
+    onChange(tempDate);
     setOpen(false);
   };
 
   return (
     <View className="w-full" style={{ position: 'relative' }}>
       {label && <Text className="text-textColor mb-2 text-sm">{label}</Text>}
-
-      {/* Trigger */}
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => setOpen(true)}
+        onPress={openPicker}
         className="w-full flex-row items-center justify-between rounded-[12px] border border-[#000]/10 bg-white px-4 py-3 shadow-sm"
       >
         <Text className={`text-sm ${selected ? 'text-black' : 'text-darkBlack'}`}>
@@ -43,17 +49,17 @@ export default function DatePickerInput({
         </Text>
         <HugeiconsIcon icon={Calendar03Icon} size={16} className="text-grey" />
       </TouchableOpacity>
-
-      {/* Modal */}
       <Modal transparent visible={open} animationType="fade">
         <Pressable className="flex-1" onPress={() => setOpen(false)} />
+
         <View
           className="absolute bottom-0 left-0 right-0 rounded-t-2xl bg-white p-4 shadow-xl"
           style={{ paddingBottom: 32 }}
         >
-          <DatePicker date={selected || new Date()} onDateChange={handleConfirm} mode={mode} />
+          <DatePicker date={tempDate} onDateChange={setTempDate} mode={mode} />
+
           <TouchableOpacity
-            onPress={() => setOpen(false)}
+            onPress={handleDone}
             className="mx-auto mt-4 w-[200px] items-center rounded-xl border border-grey/10 bg-tabBackground py-3"
           >
             <Text className="font-medium text-black">Done</Text>

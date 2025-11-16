@@ -12,5 +12,7 @@ export interface Transaction {
 export interface TransactionState {
   transactions: Transaction[];
   addTransaction: (tx: Transaction) => void;
+  updateTransaction: (tx: Transaction) => void;
+  deleteTransaction: (id: string) => void;
   resetTransactions: () => void;
 }

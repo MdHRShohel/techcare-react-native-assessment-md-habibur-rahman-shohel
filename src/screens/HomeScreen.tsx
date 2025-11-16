@@ -7,11 +7,14 @@ import OverViewSection from '../components/OverViewSection';
 import { ScreenWrapper } from '../components/ScreenWrapper';
 import TransactionsModalsComponents from '../components/TransactionsModalsComponents';
 import Transactions from '../components/transactions';
+import { Transaction } from '../types/Transaction';
 
 export default function HomeScreen() {
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState<Transaction | null>(null);
   const closeModal = () => {
     setOpen(false);
+    setEditing(null);
   };
   return (
     <View style={{ flex: 1 }}>
@@ -19,11 +22,22 @@ export default function HomeScreen() {
         <View className="flex-1 gap-[18px]">
           <BalanceCard />
           <OverViewSection />
-          <Transactions title="Recent Transactions" scrollEnabled={false} />
+          <Transactions
+            title="Recent Transactions"
+            scrollEnabled={false}
+            onEdit={(tx) => {
+              setEditing(tx);
+              setOpen(true);
+            }}
+          />
         </View>
       </ScreenWrapper>
-      <BottomSheetModal title="Add New Transaction" visible={open} onClose={closeModal}>
-        <TransactionsModalsComponents closeModal={closeModal} />
+      <BottomSheetModal
+        title={editing ? 'Edit Transaction' : 'Add New Transaction'}
+        visible={open}
+        onClose={closeModal}
+      >
+        <TransactionsModalsComponents closeModal={closeModal} editing={editing} />
       </BottomSheetModal>
     </View>
   );
